@@ -6,7 +6,7 @@
     "idgen_hex": "./bin/idgen_hex.sh"
   },
   "description": "Minimal ID generator",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "keywords": [
     "uuid",
     "id"
