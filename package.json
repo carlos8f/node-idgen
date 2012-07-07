@@ -1,7 +1,6 @@
 {
   "author": "Carlos Rodriguez <carlos@s8f.org> (http://s8f.org/)",
   "name": "idgen",
-  ""
   "bin": {
     "idgen": "./bin/idgen.sh",
     "idgen_hex": "./bin/idgen_hex.sh"
