@@ -1,16 +1,22 @@
 {
   "author": "Carlos Rodriguez <carlos@s8f.org> (http://s8f.org/)",
   "name": "idgen",
+  ""
   "bin": {
     "idgen": "./bin/idgen.sh",
     "idgen_hex": "./bin/idgen_hex.sh"
   },
   "description": "Minimal ID generator",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "keywords": [
     "uuid",
     "id"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/carlos8f/node-idgen.git"
+  },
+  "homepage": "https://github.com/carlos8f/node-idgen",
   "dependencies": {},
   "devDependencies": {},
   "optionalDependencies": {},
