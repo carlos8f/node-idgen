@@ -17,7 +17,9 @@
   },
   "homepage": "https://github.com/carlos8f/node-idgen",
   "dependencies": {},
-  "devDependencies": {},
+  "devDependencies": {
+    "mocha": "*"
+  },
   "optionalDependencies": {},
   "engines": {
     "node": "*"
