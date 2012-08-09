@@ -32,7 +32,7 @@
 
 })((typeof window !== 'undefined' && window) || module.exports);
 
-if (module && module.exports) {
+if (typeof module !== 'undefined') {
   var idgen_hex = module.exports.idgen_hex;
   module.exports = module.exports.idgen;
   module.exports.hex = idgen_hex;
