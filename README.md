@@ -3,6 +3,8 @@ idgen
 
 Minimal ID generator
 
+[![build status](https://secure.travis-ci.org/carlos8f/node-idgen.png)](http://travis-ci.org/carlos8f/node-idgen)
+
 Install
 =======
 
