@@ -7,7 +7,7 @@
   },
   "description": "Minimal ID generator",
   "main": "./idgen",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "keywords": [
     "uuid",
     "id"
