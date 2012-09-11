@@ -16,9 +16,9 @@
     var ret = ''
       , range = chars.length - 1
       , len_left = len
-      ;
+
     while (len_left--) {
-      ret += chars[Math.round(Math.random() * range)];
+      ret += chars.charAt(Math.round(Math.random() * range));
     }
     return ret;
   };
