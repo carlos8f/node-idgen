@@ -39,6 +39,16 @@ $ idgen_hex 24
 dd8ea9d0243e1a9b2f28a068
 ```
 
+Isn't it likely that I will see collisions?
+===========================================
+
+Maybe. Try using [idgen-collider](https://github.com/carlos8f/node-idgen-collider)
+to find when collisions start to happen with your chosen character length and
+character set.
+
+Note! As of idgen 1.2.0, IDs of 16+ characters will include a 7-character prefix based
+on the current millisecond time, to reduce likelihood of collisions.
+
 License
 =======
 
