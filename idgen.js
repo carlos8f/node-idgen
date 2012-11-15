@@ -11,14 +11,25 @@
    * @return {String} A unique alphanumeric string.
    */
   function idgen(len, chars) {
-    len = len || 8;
-    chars = chars || 'ABCDEFGHIJKLMNOPQRSTUVWYXZabcdefghijklmnopqrstuvwyxz0123456789';
+    len || (len = 8);
+    chars || (chars = 'ABCDEFGHIJKLMNOPQRSTUVWYXZabcdefghijklmnopqrstuvwyxz0123456789');
     var ret = ''
       , range = chars.length - 1
       , len_left = len
+      , idx
+      , useTime = len > 15
+
+    if (useTime) var time = String(Date.now());
 
     while (len_left--) {
-      ret += chars.charAt(Math.round(Math.random() * range));
+      if (useTime && time) {
+        idx = Number(time.slice(0, 2)) % range;
+        time = time.slice(2);
+      }
+      else {
+        idx = Math.round(Math.random() * range);
+      }
+      ret += chars.charAt(idx);
     }
     return ret;
   };
