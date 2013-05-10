@@ -7,12 +7,12 @@ Minimal ID generator
 
 Features (vs. traditional UUIDs and semi-deterministic alternatives):
 
-- Uses `a-zA-Z0-9` for compactness and readability. I think hex-based uuids are too long and hard to identify at a glance.
+- Uses `a-zA-Z0-9` for compactness and readability. I think hex-based UUIDs are too long and hard to identify at a glance.
 - Has flexible length and character set (adjust length to increase uniqueness or compactness). Doesn't impose a specific format on the developer.
 - Uses no crypto, to make it fast.
-- Opaque, doesn't require any input data or need to reveal a mac address, timestamp, or sequence number.
-- Timestamp can be encoded into the first characters to increase uniqueness (16+ character ids)
-- Usable in both node and browser (also an advantage over mysql-style autoincremented ids)
+- Opaque, doesn't require any input data or need to reveal a MAC address, timestamp, or sequence number.
+- Timestamp can be encoded into the first characters to increase uniqueness (16+ character IDs).
+- Usable in both node and browser (also an advantage over mysql-style autoincremented IDs).
 
 Install
 =======
