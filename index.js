@@ -1,3 +1,5 @@
+var crypto = require('crypto');
+
 /**
  * id generator
  * ------------
@@ -6,36 +8,28 @@
  */
 
 /**
- * @param [len] {Number} Length of the ID to generate.
- * @return {String} A unique alphanumeric string.
+ * @param [len] {Number} Length of the ID to generate (defaults to 16). Can be omitted if buffer is specified.
+ * @param [buf] {Buffer} Buffer to use to encode the output. If undefined, will use random bytes.
+ * @return {String} A base64url string representing the input buffer or random bytes,
+ *   trimmed to the length specified.
  */
-function idgen(len, chars) {
-  len || (len = 8);
-  chars || (chars = 'ABCDEFGHIJKLMNOPQRSTUVWYXZabcdefghijklmnopqrstuvwyxz0123456789');
-  var ret = ''
-    , range = chars.length - 1
-    , len_left = len
-    , idx
-    , useTime = len > 15
-
-  if (useTime) var time = String(Date.now());
-
-  while (len_left--) {
-    if (useTime && time) {
-      idx = Number(time.slice(0, 2)) % range;
-      time = time.slice(2);
-    }
-    else {
-      idx = Math.round(Math.random() * range);
-    }
-    ret += chars.charAt(idx);
+function idgen(len, buf) {
+  if (Buffer.isBuffer(len)) {
+    buf = len;
+    len = 0;
   }
-  return ret;
-};
-module.exports = idgen;
+  if (typeof len !== 'number') len = 16;
 
-function idgen_hex(len) {
-  len = len || 16;
-  return idgen(len, '0123456789abcdef');
-};
-module.exports.hex = idgen_hex;
+  if (!Buffer.isBuffer(buf)) {
+    var numBytes = Math.log(Math.pow(64, len)) / Math.log(2) / 8;
+    buf = crypto.randomBytes(numBytes);
+  }
+
+  return buf.toString('base64')
+    .replace(/\//g, '_')
+    .replace(/\+/g, '-')
+    .replace(/=/g, '')
+    .substr(0, len || undefined);
+}
+
+module.exports = idgen;

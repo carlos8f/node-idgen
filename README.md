@@ -5,14 +5,15 @@ Minimal ID generator
 
 [![build status](https://secure.travis-ci.org/carlos8f/node-idgen.png)](http://travis-ci.org/carlos8f/node-idgen)
 
-Features (vs. traditional UUIDs and semi-deterministic alternatives):
+Features (vs. traditional UUIDs):
 
-- Uses `a-zA-Z0-9` for compactness and readability. I think hex-based UUIDs are too long and hard to identify at a glance.
-- Has flexible length and character set (adjust length to increase uniqueness or compactness). Doesn't impose a specific format on the developer.
-- Uses no crypto, to make it fast.
-- Opaque, doesn't require any input data or need to reveal a MAC address, timestamp, or sequence number.
-- Timestamp can be encoded into the first characters to increase uniqueness (16+ character IDs).
-- Usable in both node and browser (also an advantage over mysql-style autoincremented IDs).
+- Uses [base64url](http://tools.ietf.org/html/rfc4648#section-5) encoding
+  for compactness and readability. I think hex-based UUIDs are too long and
+  hard to identify at a glance. base64url works nicely in URLs and can
+  be generated from a Buffer.
+- Supports deterministic IDs by passing in a Buffer, created using SHA or HMAC for example.
+- Supports generating any length ID (adjust length to increase uniqueness or compactness).
+- Can produce cryptographically secure random strings.
 
 Install
 =======
@@ -28,16 +29,24 @@ Usage
 var idgen = require('idgen');
 
 // simple 8-character opaque id
-idgen();
+idgen(8);
 // returns: 1WWQ1OEc
 
-// more collision-proof 16-character id with timestamp encoded into first 7 chars:
+// more collision-proof 16-character id:
 idgen(16);
-// returns: NHUfJAAzlBXfckWD
+// returns: C1574ad7cX6ztPsD
 
-// custom length and character set
-idgen(10, 'abcdefg');
-// returns: egbacgfbgc
+// from a Buffer:
+idgen(Buffer('8da307895368fcca53995503407f950c3291eb1d34af51237f500ac7e5bdf009', 'hex'));
+// returns: jaMHiVNo_MpTmVUDQH-VDDKR6x00r1Ejf1AKx-W98Ak
+
+// to get the Buffer back,
+Buffer('jaMHiVNo_MpTmVUDQH-VDDKR6x00r1Ejf1AKx-W98Ak', 'base64').toString('hex')
+// returns: 8da307895368fcca53995503407f950c3291eb1d34af51237f500ac7e5bdf009
+
+// from a Buffer, truncated to 16 characters:
+idgen(16, Buffer('8da307895368fcca53995503407f950c3291eb1d34af51237f500ac7e5bdf009', 'hex'));
+// returns: jaMHiVNo_MpTmVUD
 ```
 
 CLI version
@@ -48,22 +57,10 @@ $ npm install -g idgen
 $ idgen
 1WWQ1OEc
 $ idgen 16
-NHUgH3IIfFXNtszP
-$ idgen 4 0123456789
-6533
-$ idgen_hex 24
-dd8ea9d0243e1a9b2f28a068
+C1574ad7cX6ztPsD
+$ echo -n "carlos" | idgen
+Y2FybG9z
 ```
-
-Isn't it likely that I will see collisions?
-===========================================
-
-Maybe. Try using [idgen-collider](https://github.com/carlos8f/node-idgen-collider)
-to find when collisions start to happen with your chosen character length and
-character set.
-
-Note! As of idgen 1.2.0, IDs of 16+ characters will include a 7-character prefix based
-on the current millisecond time, to reduce likelihood of collisions.
 
 License
 =======
