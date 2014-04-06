@@ -14,7 +14,9 @@
     "url": "https://github.com/carlos8f/node-idgen.git"
   },
   "homepage": "https://github.com/carlos8f/node-idgen",
-  "dependencies": {},
+  "dependencies": {
+    "commander": "^2.2.0"
+  },
   "devDependencies": {
     "mocha": "*"
   },
