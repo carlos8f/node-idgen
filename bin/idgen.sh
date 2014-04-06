@@ -8,6 +8,7 @@ cmd
   .version(require('../package.json').version)
   .description(require('../package.json').description)
   .option('-e, --encoding <encoding>', 'specify encoding for STDIN')
+  .option('-n, --noline', 'no line feed after output')
   .parse(process.argv)
 
 process.stdin.on('readable', function () {
@@ -17,9 +18,10 @@ process.stdin.on('readable', function () {
   }
   else {
     process.stdin.pause();
-    var len = process.argv[2] ? parseInt(process.argv[2], 10) : null;
+    var len = cmd.args[0] ? parseInt(cmd.args[0], 10) : null;
     buf = buf.length ? buf : null;
-    console.log(idgen(len, buf));
+    process.stdout.write(idgen(len, buf));
+    if (!cmd.noline) process.stdout.write('\n');
     process.exit();
   }
 });

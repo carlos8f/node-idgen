@@ -21,7 +21,7 @@ function idgen(len, buf) {
   if (typeof len !== 'number') len = 16;
 
   if (!Buffer.isBuffer(buf)) {
-    var numBytes = Math.log(Math.pow(64, len)) / Math.log(2) / 8;
+    var numBytes = Math.ceil(Math.log(Math.pow(64, len)) / Math.log(2) / 8);
     buf = crypto.randomBytes(numBytes);
   }
 
