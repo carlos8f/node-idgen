@@ -1,4 +1,4 @@
-var crypto = require('crypto');
+var randomBytes = require('randombytes');
 
 /**
  * id generator
@@ -22,7 +22,7 @@ function idgen(len, buf) {
 
   if (!Buffer.isBuffer(buf)) {
     var numBytes = Math.log(Math.pow(64, len)) / Math.log(2) / 8;
-    buf = crypto.randomBytes(numBytes);
+    buf = randomBytes(numBytes);
   }
 
   return buf.toString('base64')
